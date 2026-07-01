@@ -53,8 +53,8 @@
 ;-----------------------------------------------------------------------------
 	org $3000
 .pages 2								; DO NOT go past $3200
-	icl	'fileio.lib'
-	icl	'vbxe_min.asm'					; Use my VBXE_SetPalette2 to load linear palete
+	icl 'fileio.lib'
+	icl 'vbxe_min.asm'					; Use my VBXE_SetPalette2 to load linear palete
 .endpg
 
 
@@ -82,7 +82,7 @@ main
 Exit
 	lda #$FF
 	sta CH								; Clear last key pressed
-	jmp	(DOSVEC)
+	jmp (DOSVEC)
 
 ;-----------------------------------------------------------------------------
 ; END OF CODE
@@ -95,14 +95,14 @@ Exit
 ; Wait For VSync (locks to the refresh rate, PAL=50Hz, NTSC=60Hz)  Thanks tebe
 ;-----------------------------------------------------------------------------
 Wait_For_Sync							; Hold until VCOUNT == 0
-	bit	VCOUNT
+	bit VCOUNT
 	bmi *-3
-	bit	VCOUNT
+	bit VCOUNT
 	bpl *-3
 ; If present, the next 3 lines will allow a "jump to exit" on a specific key press
 	lda CH
 	cmp #$2F							; Press Q to quit
-	beq	Exit
+	beq Exit
 	rts									; Else return to caller
 ;-----------------------------------------------------------------------------
 ; Subroutines END
